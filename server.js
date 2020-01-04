@@ -1,6 +1,11 @@
 const express = require('express')
-
+const connectDB = require('./config/db')
+const db = config.get('mongoURI', {
+  useNewUrlParser: true
+})
 const app = express()
+
+connectDB(db)
 
 app.get('/', (req, res) => res.send('API Running.'))
 
