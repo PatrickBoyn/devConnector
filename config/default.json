@@ -1,3 +1,5 @@
 {
-  "mongoURI": "mongodb://localhost:27017/devConnector"
+  "Comments": "This is just a toy website.",
+  "mongoURI": "mongodb://localhost:27017/devConnector",
+  "jwtSecret": "Not a real secret."
 }
