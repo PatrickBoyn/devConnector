@@ -82,4 +82,29 @@ router.get('/:id', auth, async (req, res) => {
     res.status(500).send('Problem loading the post.')
   }
 })
+
+// @route DELETE api/posts/:id
+// @desc delete a single post
+// @access Private
+router.delete('/:id', auth, async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id)
+
+    if (!post) {
+      return res.status(404).json({ message: 'Post not found. ' })
+    }
+
+    if (post.user.toString() !== req.user.id) {
+      return res.status(401).json({ message: 'Action not allowed.' })
+    }
+
+    await post.remove()
+
+    res.json({ message: 'Post was removed. ' })
+  } catch (error) {
+    console.error(error.message)
+    res.status(500).send('There was a problem deleting this post.')
+  }
+})
+
 module.exports = router
