@@ -46,4 +46,10 @@ router.post(
   }
 )
 
+// @route GET api/posts
+// @desc Get all posts
+// @access Private
+
+router.get('/', auth, async (req, res) => {})
+
 module.exports = router
