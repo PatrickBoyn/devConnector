@@ -50,6 +50,18 @@ router.post(
 // @desc Get all posts
 // @access Private
 
-router.get('/', auth, async (req, res) => {})
+router.get('/', auth, async (req, res) => {
+  try {
+    const posts = await Post.find().sort({ date: -1 })
+    res.json(posts)
+  } catch (error) {
+    console.error(error.message)
+    res.status(500).send('There was a problem loading the posts.')
+  }
+})
+
+// @route GET api/posts/:id
+// @desc Get post by id
+// @access Private
 
 module.exports = router
