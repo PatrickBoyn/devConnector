@@ -107,4 +107,27 @@ router.delete('/:id', auth, async (req, res) => {
   }
 })
 
+// @route  PUT api/posts/like/:id
+// @desc  Adds a like.
+//  @access Private
+
+router.put('/like/:id', auth, async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id)
+
+    if (post.likes.filter(like => like.user.toString() === req.user.id) > 0) {
+      return res.status(400).json({ message: 'Post already liked.' })
+    }
+
+    post.likes.unshift({ user: req.user.id })
+
+    await post.save()
+
+    res.json(post.likes)
+  } catch (error) {
+    console.error(error.message)
+    res.status(500).send("Like couldn't be added.")
+  }
+})
+
 module.exports = router
