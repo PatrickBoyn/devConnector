@@ -109,7 +109,7 @@ router.delete('/:id', auth, async (req, res) => {
 
 // @route  PUT api/posts/like/:id
 // @desc  Adds a like.
-//  @access Private
+// @access Private
 
 router.put('/like/:id', auth, async (req, res) => {
   try {
@@ -127,6 +127,35 @@ router.put('/like/:id', auth, async (req, res) => {
   } catch (error) {
     console.error(error.message)
     res.status(500).send("Like couldn't be added.")
+  }
+})
+
+// @route PUT api/posts/unlike/:id
+// @desc Removes a like.
+// @access Private
+
+router.put('/unlike/:id', auth, async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id)
+
+    if (
+      post.likes.filter(like => like.user.toString() === req.user.id).length ===
+      0
+    ) {
+    }
+
+    const removeIndex = post.likes
+      .map(like => like.user.toString())
+      .indexOf(req.user.id)
+
+    post.likes.splice(removeIndex, 1)
+
+    await post.save()
+
+    res.json(post.likes).send({ message: "You haven't liked this post." })
+  } catch (error) {
+    console.error(error.message)
+    res.status(500)
   }
 })
 
