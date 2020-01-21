@@ -1,14 +1,22 @@
-import React, { Fragment } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Navbar from "./components/laoyouts/Navbar";
-import "./App.css";
-import Landing from "./components/laoyouts/Landing";
+import React, { Fragment } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Navbar } from './components/laoyouts/Navbar';
+import './App.css';
+import { Landing } from './components/laoyouts/Landing';
+import { Login } from './components/auth/Login';
+import { Register } from './components/auth/Register';
 
 const App = () => (
   <Router>
     <Fragment>
       <Navbar />
-      <Route exact path="/" component={Landing} />
+      <Route exact path='/' component={Landing} />
+      <section className='container'>
+        <Switch>
+          <Route exact path='/register' component={Register} />
+          <Route exact path='/login' component={Login} />
+        </Switch>
+      </section>
     </Fragment>
   </Router>
 );
