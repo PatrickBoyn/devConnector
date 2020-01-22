@@ -13,6 +13,14 @@ export const Register = () => {
   const onChange = e =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
+  const onSubmit = e => {
+    e.preventDefault();
+    if (password !== passwordConformation) {
+      console.log('Passwords do not match.');
+    } else {
+      console.log(formData);
+    }
+  };
   return (
     <section className='container'>
       <h1 className='large text-primary'>Sign up</h1>
@@ -20,7 +28,11 @@ export const Register = () => {
         <i className='fas-fa-user'></i>
         Create Your Account
       </p>
-      <form action='dashboard.html' className='form'>
+      <form
+        action='dashboard.html'
+        onSubmit={e => onSubmit(e)}
+        className='form'
+      >
         <div className='form-group'>
           <input
             type='text'
@@ -57,9 +69,9 @@ export const Register = () => {
         <div className='form-group'>
           <input
             type='password'
-            name='passwordConfirmation'
+            name='passwordConformation'
+            placeholder='Confirm Password'
             value={passwordConformation}
-            placeholder='Confirm password'
             onChange={e => onChange(e)}
             minLength='6'
           />
