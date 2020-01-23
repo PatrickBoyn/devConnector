@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 
 export const Login = () => {
   const [formData, setFormData] = useState({
@@ -33,6 +32,8 @@ export const Login = () => {
         <div className='form-group'>
           <input
             type='email'
+            name='email'
+            value={email}
             placeholder='email@email.com'
             onChange={e => onChange(e)}
           />
@@ -40,6 +41,8 @@ export const Login = () => {
         <div className='form-group'>
           <input
             type='password'
+            name='password'
+            value={password}
             placeholder='password'
             onChange={e => onChange(e)}
             minLength='6'
