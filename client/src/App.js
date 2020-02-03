@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, {Fragment, useEffect} from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Navbar } from './components/laoyouts/Navbar';
 import './App.css';
@@ -8,8 +8,20 @@ import Register from './components/auth/Register';
 import { Provider } from 'react-redux';
 import store from './store';
 import Alert from './components/laoyouts/Alert';
+import setAuthToken from "./utils/setAuthToken";
+import { loadUser } from "./actions/auth";
 
-const App = () => (
+if(localStorage.token){
+    setAuthToken(localStorage.token);
+}
+
+const App = () => {
+
+    useEffect(() => {
+        store.dispatch(loadUser());
+    }, []);
+
+    return (
   <Provider store={store}>
     <Router>
       <Fragment>
@@ -25,6 +37,6 @@ const App = () => (
       </Fragment>
     </Router>
   </Provider>
-);
+)};
 
 export default App;
